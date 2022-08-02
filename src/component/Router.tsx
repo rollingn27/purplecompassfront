@@ -1,13 +1,13 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './home/Home';
 import React from 'react';
-import User from './user/User';
 
 const Router = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<User />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </>
