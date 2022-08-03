@@ -30,19 +30,21 @@ const rightStyle = css`
 `;
 
 const headerStyle = css`
+  min-width: 90%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   margin: 3rem 1.5rem 0 1.5rem;
-  border: 1px solid blue;
   height: 3rem;
   font-size: 1.5rem;
+  border-bottom: 1px solid purple;
+  color: purple;
 `;
 
 const logoStyle = css`
   flex-grow: 1;
   margin: auto;
-  width: 1rem;
+  min-width: 2rem;
 `;
 
 const projectStyle = css`
