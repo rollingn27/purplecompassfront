@@ -1,13 +1,33 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import IssueBox from './IssueBox';
 
 const Body = () => {
   return (
     <>
       <div css={bodyStyle}>
-        <div>시작전</div>
-        <div>진행중</div>
-        <div>완료 </div>
+        <div>
+          <span>before</span>
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+        </div>
+        <div>
+          <span>onGoing</span>
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+        </div>
+        <div>
+          <span>Completion</span>
+          <IssueBox />
+          <IssueBox />
+          <IssueBox />
+        </div>
       </div>
     </>
   );
@@ -16,17 +36,22 @@ const Body = () => {
 export default Body;
 
 const bodyStyle = css`
-  margin: 5rem 1.5rem 0 1.5rem;
+  margin: 5rem 5rem 0 5rem;
+  min-width: 90%;
   min-height: 50rem;
-  border: 1px solid blue;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
 
-  div {
+  & > div {
     text-align: center;
     width: 35.333%;
-    border: 1px solid red;
+    min-width: 17rem;
     padding: 0 1.5rem 0 1.5rem;
+  }
+
+  & span {
+    font-size: 2rem;
+    color: purple;
   }
 `;
