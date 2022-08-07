@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import IssueBox from './IssueBox';
 import Sidebar from './Sidebar';
+import CreateUi from './CreateUi';
 
 const Body = () => {
   return (
@@ -31,6 +32,7 @@ const Body = () => {
           <IssueBox />
         </div>
       </div>
+      <CreateUi />
     </>
   );
 };
