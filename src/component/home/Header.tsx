@@ -12,9 +12,15 @@ const Header = () => {
         <div css={loginStyle}>
           <div css={rightStyle}></div>
           <div style={{ textAlign: 'right' }}>
-            <span css={logo}>P</span>
-            <span css={logo}>T</span>
-            <span css={logo}>S</span>
+            <span css={logo}>
+              <img src="https://ui-avatars.com/api/?background=random&name=Projct&size=40" />
+            </span>
+            <span css={logo}>
+              <img src="https://ui-avatars.com/api/?background=random&name=Issue&size=40" />
+            </span>
+            <span css={logo}>
+              <img src="https://ui-avatars.com/api/?background=random&name=Block&size=40" />
+            </span>
           </div>
           <More css={moreStyle} />
           <div>to us</div>
@@ -28,12 +34,11 @@ const Header = () => {
 export default Header;
 
 const logo = css`
-  display: inline-block;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: yellow;
-  text-align: center;
   margin: auto 0.5rem auto 0;
+
+  img {
+    border-radius: 0.5rem;
+  }
 `;
 
 const moreStyle = css`
@@ -60,7 +65,7 @@ const headerStyle = css`
 
 const logoStyle = css`
   flex-grow: 1;
-  margin: auto;
+  margin: auto auto auto 0.5rem;
   min-width: 2rem;
 `;
 
