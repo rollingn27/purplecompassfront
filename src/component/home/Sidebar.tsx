@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/react';
-import { ReactComponent as Person } from '../../assets/person-circle-outline.svg';
-import { ReactComponent as More } from '../../assets/ellipsis-horizontal-outline.svg';
-import { ReactComponent as LogOut } from '../../assets/log-out-outline.svg';
-import { ReactComponent as Project } from '../../assets/clipboard-outline.svg';
-import { ReactComponent as Setting } from '../../assets/settings-outline.svg';
-import { ReactComponent as DashBoard } from '../../assets/grid-outline.svg';
+import { useState } from 'react';
 import { ReactComponent as Issue } from '../../assets/alert-circle-outline.svg';
+import { ReactComponent as DashBoard } from '../../assets/grid-outline.svg';
+import { ReactComponent as Help } from '../../assets/help-outline.svg';
+import { ReactComponent as LogOut } from '../../assets/log-out-outline.svg';
+import { ReactComponent as Person } from '../../assets/person-circle-outline.svg';
+import { ReactComponent as Search } from '../../assets/search-outline.svg';
+import { ReactComponent as Setting } from '../../assets/settings-outline.svg';
 
 const Sidebar = () => {
   const [isOpen, setSideMenu] = useState(false);
@@ -26,12 +26,12 @@ const Sidebar = () => {
             <span className="title">Profile</span>
           </a>
         </li>
-        <li>
+        <li style={{ marginBottom: '1rem' }}>
           <a href="#">
             <span className="icon">
-              <More />
+              <Search />
             </span>
-            <span className="title">More</span>
+            <span className="title">Search</span>
           </a>
         </li>
         <li>
@@ -45,20 +45,20 @@ const Sidebar = () => {
         <li>
           <a href="#">
             <span className="icon">
-              <Project />
-            </span>
-            <span className="title">Project</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span className="icon">
               <Issue />
             </span>
             <span className="title">Issue</span>
           </a>
         </li>
-        <li style={{ marginBottom: '1.0rem' }}>
+        <li>
+          <a href="#">
+            <span className="icon">
+              <Help />
+            </span>
+            <span className="title">Issue</span>
+          </a>
+        </li>
+        <li style={{ marginBottom: '7rem' }}>
           <a href="#">
             <span className="icon">
               <Setting />
@@ -87,8 +87,8 @@ const hideMenu = css`
   inset: 9rem 0 3.5rem 1.5rem;
   background: purple;
   border-left: 10px solid purple;
-  width: 4rem;
-  border-radius: 50px;
+  width: 3.25rem;
+  border-radius: 2rem;
   overflow: hidden;
   box-shadow: 15px 15px 25px rgbg(0, 0, 0, 0.05);
   transition: 0.5s;
@@ -103,9 +103,8 @@ const hideMenu = css`
       position: relative;
       list-style: none;
       width: 100%;
-      border-top-left-radius: 30px;
-      border-bottom-left-radius: 30px;
-      padding: 0.5rem 0;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
     }
 
     li:hover {
@@ -113,8 +112,8 @@ const hideMenu = css`
     }
 
     li:nth-of-type(1) {
-      top: 20px;
-      margin-bottom: 40px;
+      top: 1rem;
+      margin-bottom: 3rem;
       background: none;
     }
 
@@ -142,7 +141,7 @@ const hideMenu = css`
     }
     li a {
       position: relative;
-      display: block;
+      display: flex;
       width: 100%;
       display: flex;
       text-decoration: none;
@@ -154,20 +153,21 @@ const hideMenu = css`
     li a .icon {
       position: relative;
       display: block;
-      min-width: 3.5rem;
-      height: 3.5rem;
-      line-height: 3.25rem;
-      text-align: center;
+      min-width: 2.5rem;
+      height: 2.5rem;
+
+      line-height: 2.5rem;
+      // text-align: center;
     }
     li a .icon ion-icon {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
     li a .title {
       position: relative;
-      display: block;
+      // display: block;
       padding: 0 2rem;
       height: 60px;
-      line-height: 3.25rem;
+      line-height: 2.5rem;
       text-align: start;
       white-space: nowrap;
     }
@@ -175,10 +175,9 @@ const hideMenu = css`
 
   .toggle {
     position: absolute;
-    bottom: 15px;
-    right: 0.75rem;
-    width: 50px;
-    height: 50px;
+    bottom: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
     background: #fff;
     border-radius: 50%;
     cursor: pointer;
@@ -215,8 +214,8 @@ const showMenu = css`
   inset: 9rem 0 3.5rem 1.5rem;
   background: purple;
   border-left: 10px solid purple;
-  width: 15rem;
-  border-radius: 50px;
+  width: 12rem;
+  border-radius: 2rem;
   overflow: hidden;
   box-shadow: 15px 15px 25px rgbg(0, 0, 0, 0.05);
   transition: 0.5s;
@@ -231,9 +230,9 @@ const showMenu = css`
       position: relative;
       list-style: none;
       width: 100%;
-      border-top-left-radius: 30px;
-      border-bottom-left-radius: 30px;
-      padding: 0.5rem 0;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+      // padding: 0.5rem 0;
     }
 
     li:hover {
@@ -241,8 +240,8 @@ const showMenu = css`
     }
 
     li:nth-of-type(1) {
-      top: 20px;
-      margin-bottom: 40px;
+      top: 1rem;
+      margin-bottom: 3rem;
       background: none;
     }
 
@@ -282,20 +281,20 @@ const showMenu = css`
     li a .icon {
       position: relative;
       display: block;
-      min-width: 3.5rem;
-      height: 3.5rem;
-      line-height: 3.25rem;
-      text-align: center;
+      min-width: 2.5rem;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      // text-align: center;
     }
     li a .icon ion-icon {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
     li a .title {
       position: relative;
       display: block;
       padding: 0 2rem;
       height: 60px;
-      line-height: 3.25rem;
+      line-height: 2.5rem;
       text-align: start;
       white-space: nowrap;
     }
@@ -303,10 +302,9 @@ const showMenu = css`
 
   .toggle {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
-    width: 50px;
-    height: 50px;
+    bottom: 1rem;    
+    width: 2.5rem;
+    height: 2.5rem;
     background: #fff;
     border-radius: 50%;
     cursor: pointer;
@@ -342,18 +340,4 @@ const showMenu = css`
   .toggle::after {
     transform: translateY(0px) rotate(225deg);
   }
-`;
-
-const toggleStyle = css`
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  width: 50px;
-  height: 50px;
-  background: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
