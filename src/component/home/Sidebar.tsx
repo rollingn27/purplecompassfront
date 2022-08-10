@@ -82,144 +82,15 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const hideMenu = css`
+const menuCommon = css`
   position: fixed;
   inset: 9rem 0 3.5rem 1.5rem;
   background: purple;
   border-left: 10px solid purple;
-  width: 3.25rem;
   border-radius: 2rem;
   overflow: hidden;
   box-shadow: 15px 15px 25px rgbg(0, 0, 0, 0.05);
   transition: 0.5s;
-
-  ul {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0;
-    li {
-      position: relative;
-      list-style: none;
-      width: 100%;
-      border-top-left-radius: 1rem;
-      border-bottom-left-radius: 1rem;
-    }
-
-    li:hover {
-      background-color: #fff;
-    }
-
-    li:nth-of-type(1) {
-      top: 1rem;
-      margin-bottom: 3rem;
-      background: none;
-    }
-
-    li:not(:first-of-type):hover::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      right: 0;
-      width: 20px;
-      height: 20px;
-      background: transparent;
-      border-bottom-right-radius: 20px;
-      box-shadow: 7.5px 7.5px 0 7.5px #fff;
-    }
-    li:not(:first-of-type):hover::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      right: 0;
-      width: 20px;
-      height: 20px;
-      background: transparent;
-      border-top-right-radius: 20px;
-      box-shadow: 7.5px -7.5px 0 7.5px #fff;
-    }
-    li a {
-      position: relative;
-      display: flex;
-      width: 100%;
-      display: flex;
-      text-decoration: none;
-      color: #fff;
-    }
-    li:hover:not(:first-of-type) a {
-      color: #365fa1;
-    }
-    li a .icon {
-      position: relative;
-      display: block;
-      min-width: 2.5rem;
-      height: 2.5rem;
-
-      line-height: 2.5rem;
-      // text-align: center;
-    }
-    li a .icon ion-icon {
-      font-size: 1.5rem;
-    }
-    li a .title {
-      position: relative;
-      // display: block;
-      padding: 0 2rem;
-      height: 60px;
-      line-height: 2.5rem;
-      text-align: start;
-      white-space: nowrap;
-    }
-  }
-
-  .toggle {
-    position: absolute;
-    bottom: 1rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    background: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .toggle::before {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 3px;
-    border-radius: 3px;
-    background: #365fa1;
-    transform: translateY(-5px);
-    transition: 1s;
-  }
-
-  .toggle::after {
-    content: '';
-    position: absolute;
-    width: 26px;
-    height: 3px;
-    border-radius: 3px;
-    background: #365fa1;
-    transform: translateY(5px);
-    transition: 1s;
-  }
-`;
-
-const showMenu = css`
-  opacity: 0.7;
-  position: fixed;
-  inset: 9rem 0 3.5rem 1.5rem;
-  background: purple;
-  border-left: 10px solid purple;
-  width: 12rem;
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow: 15px 15px 25px rgbg(0, 0, 0, 0.05);
-  transition: 0.5s;
-
   ul {
     position: absolute;
     top: 0;
@@ -269,7 +140,6 @@ const showMenu = css`
     }
     li a {
       position: relative;
-      display: block;
       width: 100%;
       display: flex;
       text-decoration: none;
@@ -284,14 +154,12 @@ const showMenu = css`
       min-width: 2.5rem;
       height: 2.5rem;
       line-height: 2.5rem;
-      // text-align: center;
     }
     li a .icon ion-icon {
       font-size: 1.5rem;
     }
     li a .title {
       position: relative;
-      display: block;
       padding: 0 2rem;
       height: 60px;
       line-height: 2.5rem;
@@ -302,7 +170,7 @@ const showMenu = css`
 
   .toggle {
     position: absolute;
-    bottom: 1rem;    
+    bottom: 1rem;
     width: 2.5rem;
     height: 2.5rem;
     background: #fff;
@@ -312,6 +180,7 @@ const showMenu = css`
     justify-content: center;
     align-items: center;
   }
+
   .toggle::before {
     content: '';
     position: absolute;
@@ -333,8 +202,20 @@ const showMenu = css`
     transform: translateY(5px);
     transition: 1s;
   }
+`;
+
+const hideMenu = css`
+  ${menuCommon}
+  width: 3.25rem;
+`;
+
+const showMenu = css`
+  opacity: 0.7;
+  width: 12rem;
+  ${menuCommon}
+
   .toggle::before {
-    transform: translateY(0px) rotate(-405deg);
+    transform: translateY(0px) rotate(-45deg);
   }
 
   .toggle::after {
