@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './Sidebar';
 import Kanban from './Kanban';
+import CreateUi from './CreateUi'
 
 const Body = () => {
   const body = true;
@@ -9,6 +10,7 @@ const Body = () => {
     <>
       <Sidebar />
       <Kanban />
+      <CreateUi />
     </>
   );
 };
