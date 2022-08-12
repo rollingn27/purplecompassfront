@@ -19,33 +19,25 @@ const CreateUi = () => {
           <AddOutline />
         </span>
         <ul>
-          <li css={{ style: '--i:0;' }}>
+          <li css={no1}>
             <a href="#">
-              <span style={{ width: '2rem' }}>
-                <Project css={imgStyle} />
-              </span>
+              <Check />
             </a>
           </li>
-          <li css={{ style: '--i:1;' }}>
+          <li css={no2}>
             <a href="#">
-              <Issue css={imgStyle} />
+              <Todo />
             </a>
           </li>
-          <li css={{ style: '--i:2;' }}>
+          <li css={no3}>
             <a href="#">
-              <Todo css={imgStyle} />
+              <Issue />
             </a>
           </li>
-          <li css={{ style: '--i:3;' }}>
+          <li css={no4}>
             <a href="#">
-              <Check css={imgStyle} />
+              <Project />
             </a>
-          </li>
-          <li css={{ style: '--i:4;' }}>
-            <a href="#"></a>
-          </li>
-          <li css={{ style: '--i:5;' }}>
-            <a href="#"></a>
           </li>
         </ul>
       </span>
@@ -55,67 +47,97 @@ const CreateUi = () => {
 
 export default CreateUi;
 
-const imgStyle = css`
-  width: 2rem;
+const no1 = css`
+  --i: 0;
+`;
+const no2 = css`
+  --i: 1;
+`;
+const no3 = css`
+  --i: 2;
+`;
+const no4 = css`
+  --i: 3;
 `;
 
 const commonAttr = css`
-  margin: 0;
   position: fixed;
-  inset: 40rem 100rem 5rem 50rem; // 상 우 하 좌
-  // background: purple;
+  inset: 48rem 100rem 5rem 110rem; // 상 우 하 좌
   box-sizing: border-box;
-  // border-left: 10px solid purple;
   width: 2rem;
-  border-radius: 2rem;
-  // overflow: hidden;
-  box-shadow: 15px 15px 25px rgbg(0, 0, 0, 0.05);
-  transition: 0.5s;
+  width: 200px;
+  height: 200px;
+  background: rgba(225, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 
-  .createUi {
-    // width: 200px;
-    // height: 200px;
-    background: #0f0;
+  .toggle {
+    position: fixed;
+    transition: 1.5s;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+    width: 2.5rem;
+    height: 2.5rem;
+    background: purple;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: purple;
+    z-index: 10000;
+    border-radius: 100%;
+    cursor: pointer;
+    font-size: 1rem;
   }
-  .createUi ul {
-    list-style: none;
+  ul {
+    display: hidden;
+    justify-content: center;
+    align-items: center;
   }
-  .createUi ul li {
-    potition: absolute;
+  ul li {
+    position: absolute;
+    display: flex;
     left: 0;
-    transform-origin: 100px;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    transform-origin: 80px;
     transition: 0.5s;
     transition-delay: calc(0.1s * var(--i));
-
-    a {
-      width: 2rem;
-    }
+  }
+  ul li a {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 100%;
+    opacity: 0.7;
+    transform: rotate(calc(70deg + (180deg / -4 * var(--i))));
   }
 `;
 
 const showUi = css`
   ${commonAttr}
   .toggle {
-    width: 2rem;
-    height: 2rem;
-    background: #fff;
-    display: inline-block;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    border-radius: 100%;
-    cursor: pointer;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
-    font-size: 1rem;
-    transition: 1.5s;
-    transform: rotate(360deg);
+    transform: rotate(225deg);
+  }
+
+  ul li {
+    transform: rotate(calc(-70deg + (180deg / 4 * var(--i))));
+  }
+  ul li a:hover {
+    color: red;
   }
 `;
 
 const hideUi = css`
   ${commonAttr}
+  .toggle {
+    transform: rotate(360deg);
+  }
+  ul li {
+    transform: rotate(0deg) translateX(80px);
+    transition: 0.5s;
+    transition-delay: calc(0.1s * var(--i));
+  }
 `;
