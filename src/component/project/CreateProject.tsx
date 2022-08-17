@@ -93,7 +93,7 @@ const projectStyle = css`
   position: fixed;
   top: 7.5rem;
   left: 20rem;
-  border: 1px solid green;
+  border: 1px solid gray;
   min-width: 50rem;
   padding: 2.5rem;
   border-radius: 0.5rem;
