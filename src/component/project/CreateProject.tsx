@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import FormInput from './FormInput';
 import { css } from '@emotion/react';
+import { Project } from '../../api/type';
 
-const CreateProject = (props: any) => {
+type createProjectProps = {
+  projects: Project
+}
+const CreateProject = ({ projects} : createProjectProps) => {
+  
   const [values, setValues] = useState<any>({
     username: '',
     email: '',
