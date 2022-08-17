@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import FormInput from './FormInput';
 import { css } from '@emotion/react';
 import { Project } from '../../api/type';
+import { fixRequestBody } from 'http-proxy-middleware';
 
 type createProjectProps = {
-  projects: Project
-}
-const CreateProject = ({ projects} : createProjectProps) => {
-  
+  projects: Project;
+};
+const CreateProject = () => {
   const [values, setValues] = useState<any>({
     username: '',
     email: '',
@@ -74,7 +74,7 @@ const CreateProject = ({ projects} : createProjectProps) => {
   };
   return (
     <>
-      <div className="app">
+      <div className="app" css={projectStyle}>
         <form onSubmit={handleSubmit}>
           <h1> Register</h1>
           {inputs.map((input) => (
@@ -88,3 +88,15 @@ const CreateProject = ({ projects} : createProjectProps) => {
 };
 
 export default CreateProject;
+
+const projectStyle = css`
+  position: fixed;
+  top: 7.5rem;
+  left: 20rem;
+  border: 1px solid green;
+  min-width: 50rem;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  z-index: 1;
+  background: white;
+`;

@@ -36,3 +36,14 @@ input:invalid[focused='true'] {
 input:invalid[focused='true'] ~ span {
   display: block;
 }
+
+/* .app {
+  position: fixed;
+  top: 4rem;
+  left: 20rem;
+  min-width: 50rem;
+  min-height: 30rem;
+  border: 1px solid skyblue;
+  padding: 2rem;
+
+} */
