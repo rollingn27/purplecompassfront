@@ -39,7 +39,13 @@ const CreateUi = (thisset: any) => {
             </a>
           </li>
           <li css={no4}>
-            <a href="#" onClick={() => setModalOpen(!modalOpen)}>
+            <a
+              href="#"
+              onClick={() => {
+                setModalOpen(!modalOpen);
+                setRightUiMenu(false);
+              }}
+            >
               <Project />
             </a>
           </li>
