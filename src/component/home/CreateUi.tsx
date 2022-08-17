@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { css } from '@emotion/react';
+import CreateProject from '../project/CreateProject';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
 import { ReactComponent as Project } from '../../assets/clipboard-outline.svg';
 import { ReactComponent as Issue } from '../../assets/document-outline.svg';
 import { ReactComponent as Todo } from '../../assets/list-outline.svg';
 import { ReactComponent as Check } from '../../assets/checkmark-outline.svg';
-const CreateUi = () => {
+
+const CreateUi = (thisset: any) => {
   const [isOpen, setRightUiMenu] = useState(false);
 
   const menuToggle = () => {
     setRightUiMenu((isOpen) => !isOpen);
   };
+  const [modalOpen, setModalOpen] = useState(true);
 
   return (
     <>
+      {modalOpen && <div css={modalStyle}>{<CreateProject />} </div>}
       <span className="createUi" css={isOpen ? showUi : hideUi}>
         <span className="toggle" onClick={menuToggle}>
-          <AddOutline />
+          <AddOutline style={{ color: 'white' }} />
         </span>
         <ul>
           <li css={no1}>
@@ -35,7 +39,7 @@ const CreateUi = () => {
             </a>
           </li>
           <li css={no4}>
-            <a href="#">
+            <a href="#" onClick={() => setModalOpen(!modalOpen)}>
               <Project />
             </a>
           </li>
@@ -46,6 +50,22 @@ const CreateUi = () => {
 };
 
 export default CreateUi;
+
+const modalStyle = css`
+  position: fixed;
+  top: 15rem;
+  left: 50rem;
+  background: purple;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+`;
 
 const no1 = css`
   --i: 0;
@@ -107,12 +127,14 @@ const commonAttr = css`
     transition-delay: calc(0.1s * var(--i));
   }
   ul li a {
+    padding: 0.2rem;
     width: 40px;
     height: 40px;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
     border-radius: 100%;
-    opacity: 0.7;
-    transform: rotate(calc(70deg + (180deg / -4 * var(--i))));
+    background: purple;
+    color: white;
+    transform: rotate(calc(70deg + (180deg / -3.5 * var(--i))));
   }
 `;
 
@@ -123,7 +145,7 @@ const showUi = css`
   }
 
   ul li {
-    transform: rotate(calc(-70deg + (180deg / 4 * var(--i))));
+    transform: rotate(calc(-70deg + (180deg / 3.5 * var(--i))));
   }
   ul li a:hover {
     color: red;
