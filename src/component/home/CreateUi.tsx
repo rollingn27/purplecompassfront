@@ -82,7 +82,7 @@ const no4 = css`
 
 const commonAttr = css`
   position: fixed;
-  inset: 48rem 100rem 5rem 110rem; // 상 우 하 좌
+  inset: 45rem 100rem 5rem 110rem; // 상 우 하 좌
   box-sizing: border-box;
   width: 2rem;
   width: 200px;
