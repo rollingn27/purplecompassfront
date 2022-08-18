@@ -13,7 +13,7 @@ const CreateUi = (thisset: any) => {
   const menuToggle = () => {
     setRightUiMenu((isOpen) => !isOpen);
   };
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>

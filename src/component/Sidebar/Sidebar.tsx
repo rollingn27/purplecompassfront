@@ -55,7 +55,7 @@ const Sidebar = () => {
             <span className="icon">
               <Help />
             </span>
-            <span className="title">Issue</span>
+            <span className="title">Help</span>
           </a>
         </li>
         <li style={{ marginBottom: '7rem' }}>
