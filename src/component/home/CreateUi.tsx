@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
@@ -7,17 +7,34 @@ import { ReactComponent as Issue } from '../../assets/document-outline.svg';
 import { ReactComponent as Todo } from '../../assets/list-outline.svg';
 import { ReactComponent as Check } from '../../assets/checkmark-outline.svg';
 
-const CreateUi = (thisset: any) => {
+const CreateUi = (e: any) => {
   const [isOpen, setRightUiMenu] = useState(false);
 
   const menuToggle = () => {
     setRightUiMenu((isOpen) => !isOpen);
   };
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const openModal = () => {
+    setModalOpen((modalOpen) => !modalOpen);
+  };
+  const getData = (e: MouseEvent<HTMLDivElement>) => {
+    return setModalOpen((modalOpen) => !modalOpen);
+  };
 
+  const userId = 'TestId';
   return (
     <>
-      {modalOpen && <div css={modalStyle}>{<CreateProject />} </div>}
+      {modalOpen && (
+        <div css={modalStyle}>
+          <CreateProject
+            userId={userId}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            closable={true}
+            maskClosable={true}
+          />
+        </div>
+      )}
       <span className="createUi" css={isOpen ? showUi : hideUi}>
         <span className="toggle" onClick={menuToggle}>
           <AddOutline style={{ color: 'white' }} />
@@ -39,13 +56,7 @@ const CreateUi = (thisset: any) => {
             </a>
           </li>
           <li css={no4}>
-            <a
-              href="#"
-              onClick={() => {
-                setModalOpen(!modalOpen);
-                setRightUiMenu(false);
-              }}
-            >
+            <a href="#" onClick={openModal}>
               <Project />
             </a>
           </li>
@@ -65,6 +76,7 @@ const modalStyle = css`
   border-radius: 1.5rem;
   box-sizing: border-box;
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   z-index: 20000;
@@ -88,7 +100,7 @@ const no4 = css`
 
 const commonAttr = css`
   position: fixed;
-  inset: 45rem 100rem 5rem 110rem; // 상 우 하 좌
+  inset: 44rem 100rem 5rem 110rem; // 상 우 하 좌
   box-sizing: border-box;
   width: 2rem;
   width: 200px;

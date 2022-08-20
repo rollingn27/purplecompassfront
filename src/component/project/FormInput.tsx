@@ -3,11 +3,11 @@ import { css } from '@emotion/react';
 import './formInput.css';
 
 const FormInput = (props: any) => {
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(true);
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
   const handleFocus = (e: any) => {
-    setFocused(true);
+    setFocused(false);
   };
 
   return (
