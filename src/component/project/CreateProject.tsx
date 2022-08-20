@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import FormInput from './FormInput';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Project } from '../../api/type';
 import { fixRequestBody } from 'http-proxy-middleware';
 
 type createProjectProps = {
-  projects: Project;
+  userId: string;
 };
-const CreateProject = () => {
+const CreateProject = ({ userId }: createProjectProps, className: any, visible: boolean, children: any) => {
   const [values, setValues] = useState<any>({
-    username: '',
+    username: '대충',
     email: '',
     birthday: '',
     password: '',
@@ -18,50 +19,36 @@ const CreateProject = () => {
   const inputs = [
     {
       id: 1,
-      name: 'username',
+      name: 'projectname',
       type: 'text',
-      placeholder: 'Username',
-      errorMessage: "Username should be 3-16 characters and shouldn't include any special character!",
-      label: 'Username',
+      placeholder: 'Project Name',
+      label: 'Project Name',
       pattern: '^[A-Za-z0-9]{3,16}$',
       required: true,
     },
     {
       id: 2,
-      name: 'email',
-      type: 'email',
-      placeholder: 'Email',
-      errorMessage: 'It should be a valid email address!',
-      label: 'Email',
+      name: 'projectkey',
+      type: 'text',
+      placeholder: 'Project Key',
+      errorMessage: 'It should be 3~16 ',
+      label: 'Project Key',
+      pattern: '^[A-Za-z0-9]{3,16}$',
       required: true,
     },
     {
       id: 3,
-      name: 'birthday',
-      type: 'date',
-      placeholder: 'Birthday',
-      label: 'Birthday',
+      name: 'tags',
+      type: 'text',
+      placeholder: 'tags',
+      label: 'tags',
     },
     {
       id: 4,
-      name: 'password',
-      type: 'password',
-      placeholder: 'Password',
-      errorMessage:
-        'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
-      label: 'Password',
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-      required: true,
-    },
-    {
-      id: 5,
-      name: 'confirmPassword',
-      type: 'password',
-      placeholder: 'Confirm Password',
-      errorMessage: "Passwords don't match!",
-      label: 'Confirm Password',
-      pattern: values.password,
-      required: true,
+      name: 'description',
+      type: 'text',
+      placeholder: 'description',
+      label: 'description',
     },
   ];
 
@@ -72,31 +59,37 @@ const CreateProject = () => {
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  const onClick = () => {
+    console.log(userId, values.username);
+  };
   return (
     <>
-      <div className="app" css={projectStyle}>
-        <form onSubmit={handleSubmit}>
-          <h1> Register</h1>
-          {inputs.map((input) => (
-            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
-          ))}
-          <button className="button">Submit</button>
-        </form>
-      </div>
+      <ProjectStyle visible={visible} />
+      <form onSubmit={handleSubmit}>
+        <h1 onClick={onClick}>Project</h1>
+        {inputs.map((input) => (
+          <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
+        ))}
+        <button className="button" onClick={onClick}>
+          Submit
+        </button>
+      </form>
     </>
   );
 };
 
 export default CreateProject;
 
-const projectStyle = css`
+const ProjectStyle = styled.div<{ visible: boolean }>`
   position: fixed;
+  display: ${(props) => (props.visible ? 'block' : 'none')};
   top: 7.5rem;
   left: 20rem;
   border: 1px solid green;
   min-width: 50rem;
   padding: 2.5rem;
   border-radius: 0.5rem;
-  z-index: 1;
+  z-index: 1000;
   background: white;
 `;

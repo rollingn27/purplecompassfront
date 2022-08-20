@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
@@ -13,11 +13,11 @@ const CreateUi = (thisset: any) => {
   const menuToggle = () => {
     setRightUiMenu((isOpen) => !isOpen);
   };
-  const [modalOpen, setModalOpen] = useState(true);
-
+  const [modalOpen, setModalOpen] = useState(false);
+  const userId = 'TestId';
   return (
     <>
-      {modalOpen && <div css={modalStyle}>{<CreateProject />} </div>}
+      {modalOpen && <div css={modalStyle}>{<CreateProject userId={userId} />} </div>}
       <span className="createUi" css={isOpen ? showUi : hideUi}>
         <span className="toggle" onClick={menuToggle}>
           <AddOutline style={{ color: 'white' }} />
@@ -39,13 +39,7 @@ const CreateUi = (thisset: any) => {
             </a>
           </li>
           <li css={no4}>
-            <a
-              href="#"
-              onClick={() => {
-                setModalOpen(!modalOpen);
-                setRightUiMenu(false);
-              }}
-            >
+            <a href="#" onClick={() => setModalOpen(!modalOpen)}>
               <Project />
             </a>
           </li>
@@ -88,7 +82,7 @@ const no4 = css`
 
 const commonAttr = css`
   position: fixed;
-  inset: 45rem 100rem 5rem 110rem; // 상 우 하 좌
+  inset: 44rem 100rem 5rem 110rem; // 상 우 하 좌
   box-sizing: border-box;
   width: 2rem;
   width: 200px;

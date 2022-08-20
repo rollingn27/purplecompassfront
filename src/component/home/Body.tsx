@@ -13,7 +13,7 @@ const Body = () => {
   return (
     <>
       <Sidebar />
-      <Kanban />
+      {/* <Kanban /> */}
       <CreateUi thisset={thisset} />
     </>
   );
