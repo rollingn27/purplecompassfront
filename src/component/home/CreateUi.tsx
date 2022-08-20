@@ -13,11 +13,15 @@ const CreateUi = (thisset: any) => {
   const menuToggle = () => {
     setRightUiMenu((isOpen) => !isOpen);
   };
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const userId = 'TestId';
   return (
     <>
-      {modalOpen && <div css={modalStyle}>{<CreateProject userId={userId} </div>}
+      {modalOpen && (
+        <div css={modalStyle}>
+          <CreateProject userId={userId} visible={modalOpen} />{' '}
+        </div>
+      )}
       <span className="createUi" css={isOpen ? showUi : hideUi}>
         <span className="toggle" onClick={menuToggle}>
           <AddOutline style={{ color: 'white' }} />

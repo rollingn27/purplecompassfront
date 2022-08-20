@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from 'react';
-import Sidebar from './Sidebar';
-import Kanban from './Kanban';
+import Sidebar from '../Sidebar/Sidebar';
+import Kanban from '../Kanban/Kanban';
 import CreateUi from './CreateUi';
 
 const Body = () => {
@@ -13,7 +13,7 @@ const Body = () => {
   return (
     <>
       <Sidebar />
-      {/* <Kanban /> */}
+      <Kanban />
       <CreateUi thisset={thisset} />
     </>
   );

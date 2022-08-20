@@ -3,7 +3,7 @@
   flex-direction: column;
   border-radius: 100%;
   border: 2rem;
-  width: 280px;
+  width: 25rem;
 }
 .button {
   float: right; /* left, right 시 display 무시됨 */

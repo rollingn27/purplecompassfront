@@ -7,12 +7,15 @@ import { fixRequestBody } from 'http-proxy-middleware';
 
 type createProjectProps = {
   userId: string;
+  className?: any;
+  visible: boolean;
+  children?: any;
 };
-const CreateProject = ({ userId }: createProjectProps, className: any, visible: boolean, children: any) => {
+const CreateProject = ({ userId, className, visible, children }: createProjectProps) => {
   const [values, setValues] = useState<any>({
-    username: '대충',
-    email: '',
-    birthday: '',
+    pName: '',
+    pKey: '',
+    tags: [''],
     password: '',
     confirmPassword: '',
   });
@@ -65,27 +68,28 @@ const CreateProject = ({ userId }: createProjectProps, className: any, visible: 
   };
   return (
     <>
-      <ProjectStyle visible={visible} />
-      <form onSubmit={handleSubmit}>
-        <h1 onClick={onClick}>Project</h1>
-        {inputs.map((input) => (
-          <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
-        ))}
-        <button className="button" onClick={onClick}>
-          Submit
-        </button>
-      </form>
+      <ProjectStyle visible={visible}>
+        <form onSubmit={handleSubmit}>
+          <h1 onClick={onClick}>Project</h1>
+          {inputs.map((input) => (
+            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
+          ))}
+          <button className="button" onClick={onClick}>
+            Submit
+          </button>
+        </form>
+      </ProjectStyle>
     </>
   );
 };
 
 export default CreateProject;
 
-const ProjectStyle = styled.div<{ visible: boolean }>`
+const ProjectStyle = styled.form<{ visible: boolean }>`
   position: fixed;
   display: ${(props) => (props.visible ? 'block' : 'none')};
   top: 7.5rem;
-  left: 20rem;
+  left: 25rem;
   border: 1px solid gray;
   min-width: 50rem;
   padding: 2.5rem;
