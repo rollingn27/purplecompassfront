@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
@@ -7,19 +7,32 @@ import { ReactComponent as Issue } from '../../assets/document-outline.svg';
 import { ReactComponent as Todo } from '../../assets/list-outline.svg';
 import { ReactComponent as Check } from '../../assets/checkmark-outline.svg';
 
-const CreateUi = (thisset: any) => {
+const CreateUi = (e: any) => {
   const [isOpen, setRightUiMenu] = useState(false);
 
   const menuToggle = () => {
     setRightUiMenu((isOpen) => !isOpen);
   };
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const openModal = () => {
+    setModalOpen((modalOpen) => !modalOpen);
+  };
+  const getData = (e: MouseEvent<HTMLDivElement>) => {
+    return setModalOpen((modalOpen) => !modalOpen);
+  };
+
   const userId = 'TestId';
   return (
     <>
       {modalOpen && (
         <div css={modalStyle}>
-          <CreateProject userId={userId} visible={modalOpen} />{' '}
+          <CreateProject
+            userId={userId}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            closable={true}
+            maskClosable={true}
+          />
         </div>
       )}
       <span className="createUi" css={isOpen ? showUi : hideUi}>
@@ -43,7 +56,7 @@ const CreateUi = (thisset: any) => {
             </a>
           </li>
           <li css={no4}>
-            <a href="#" onClick={() => setModalOpen(!modalOpen)}>
+            <a href="#" onClick={openModal}>
               <Project />
             </a>
           </li>
@@ -63,6 +76,7 @@ const modalStyle = css`
   border-radius: 1.5rem;
   box-sizing: border-box;
   display: flex;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
   z-index: 20000;
