@@ -17,7 +17,7 @@ const CreateUi = (thisset: any) => {
   const userId = 'TestId';
   return (
     <>
-      {modalOpen && <div css={modalStyle}>{<CreateProject userId={userId} />} </div>}
+      {modalOpen && <div css={modalStyle}>{<CreateProject userId={userId} </div>}
       <span className="createUi" css={isOpen ? showUi : hideUi}>
         <span className="toggle" onClick={menuToggle}>
           <AddOutline style={{ color: 'white' }} />

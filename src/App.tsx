@@ -2,7 +2,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import React from 'react';
-import Router from './component/Router';
+import Router from './component/home/Router';
 
 function App() {
   return (

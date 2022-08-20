@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { ReactComponent as More } from '../../assets/ellipsis-horizontal-outline.svg';
+import { Button, Link, Typography } from '@mui/material';
 
 const Header = () => {
   return (
@@ -24,7 +25,13 @@ const Header = () => {
           </div>
           <More css={moreStyle} />
           <div>to us</div>
-          <div>회원님</div>
+          <div>
+            <Link href="/signin">
+              {/* <Button variant="outlined" size="small" sx={{ color: 'purple', borderColor: 'purple' }}> */}
+              Sign In
+              {/* </Button> */}
+            </Link>
+          </div>
         </div>
       </div>
     </>

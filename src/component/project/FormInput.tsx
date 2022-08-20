@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { css } from '@emotion/react';
 import './formInput.css';
 
 const FormInput = (props: any) => {
@@ -13,6 +14,7 @@ const FormInput = (props: any) => {
     <div className="formInput">
       <label>{label}</label>
       <input
+        css={tempStyle}
         {...inputProps}
         onChange={onChange}
         onBlur={handleFocus}
@@ -25,3 +27,9 @@ const FormInput = (props: any) => {
 };
 
 export default FormInput;
+
+const tempStyle = css`
+  &:hover {
+    border: 1px solid blue;
+  }
+`;
