@@ -1,10 +1,9 @@
-import React, { MouseEvent, MouseEventHandler, useState, useEffect } from 'react';
+import React, { MouseEvent, useState, CSSProperties } from 'react';
 import FormInput from './FormInput';
 import { ReactComponent as CloseButton } from '../../assets/close-outline.svg';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Project } from '../../api/type';
-import { fixRequestBody } from 'http-proxy-middleware';
+import { useLockedBody } from 'usehooks-ts';
 
 type createProjectProps = {
   userId: string;
@@ -15,7 +14,18 @@ type createProjectProps = {
   maskClosable: boolean;
   children?: string;
 };
-interface ProjectModal {}
+
+const fixedCenterStyle: CSSProperties = {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+};
+
+const fakeScrollableStyle: CSSProperties = {
+  minHeight: '150vh',
+  background: 'linear-gradient(palegreen, palegoldenrod, palevioletred)',
+};
 
 const CreateProject = ({
   userId,
@@ -38,8 +48,9 @@ const CreateProject = ({
       name: 'projectName',
       type: 'text',
       placeholder: 'Project Name',
+      errorMessage: '프로젝트명은 3~15의 온전한 문자로 이루어져야 합니다',
       label: 'Project Name',
-      pattern: '^[A-Za-z0-9]{3,16}$',
+      pattern: '^[A-Za-z0-9가-힣]{3,15}$',
       required: true,
     },
     {
@@ -69,10 +80,13 @@ const CreateProject = ({
   ];
 
   const handleSubmit = (e: any) => {
-    e.preventDefault();
-    alert('submit');
+    // e.preventDefault();
+    alert('click submitButton');
   };
 
+  const testPost = (e: any) => {
+    alert('after click, request are made');
+  };
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
@@ -106,7 +120,7 @@ const CreateProject = ({
         <ProjectModalInner tabIndex={0} className="modal-inner">
           {closable && <CloseButton className="modal-close" onClick={close} css={CButton} />}
           {
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={testPost}>
               <h1>Create Project</h1>
               {inputs.map((input) => (
                 <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
@@ -162,6 +176,9 @@ const ProjectModalInner = styled.form`
 const CButton = css`
   display: flex;
   float: right;
-  width: 1rem;
-  height: 1rem;
+  width: 2rem;
+  height: 2rem;
+  &:hover {
+    border: 0.1rem ridge #d3d3d3;
+  }
 `;

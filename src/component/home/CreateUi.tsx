@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
@@ -16,9 +16,6 @@ const CreateUi = (e: any) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const openModal = () => {
     setModalOpen((modalOpen) => !modalOpen);
-  };
-  const getData = (e: MouseEvent<HTMLDivElement>) => {
-    return setModalOpen((modalOpen) => !modalOpen);
   };
 
   const userId = 'TestId';

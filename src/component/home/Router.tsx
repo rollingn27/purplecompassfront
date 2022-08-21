@@ -1,12 +1,12 @@
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import SignUp from '../user/SignUp';
 import Home from './Home';
+import DashBoard from '../dashboard/DashBoard';
 import React from 'react';
 import SignIn from '../user/SignIn';
 const NotFound = () => {
   return <Link to="..">돌아가!!</Link>;
 };
-
 const Router = () => {
   return (
     <>
