@@ -9,12 +9,10 @@ const Body = () => {
   const [checker, setChecker] = useState<string>('');
 
   const navigator = () => {
-    if (checker === 'dashBoard') {
-      return <DashBoard />;
-    } else if (checker === 'issue') {
+    if (checker === 'issue') {
       return <Kanban />;
     } else {
-      return <div>Default Body</div>;
+      return <DashBoard />;
     }
   };
   return (
