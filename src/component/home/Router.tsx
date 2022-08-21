@@ -1,10 +1,21 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, useNavigate, Route, Routes } from 'react-router-dom';
 import SignUp from '../user/SignUp';
 import Home from './Home';
 import React from 'react';
 import SignIn from '../user/SignIn';
+
 const NotFound = () => {
-  return <Link to="..">돌아가!!</Link>;
+  const navi = useNavigate();
+
+  const onClick = () => {
+    navi('/');
+  };
+
+  return (
+    <>
+      <div onClick={onClick}>go home back</div>
+    </>
+  );
 };
 
 const Router = () => {
