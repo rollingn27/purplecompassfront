@@ -1,6 +1,6 @@
-import React, { useState, Suspense } from 'react';
-import Sidebar from '../Sidebar/Sidebar';
+import { useState } from 'react';
 import Kanban from '../Kanban/Kanban';
+import Sidebar from '../Sidebar/Sidebar';
 import CreateUi from './CreateUi';
 
 const Body = () => {

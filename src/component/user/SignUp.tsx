@@ -2,6 +2,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import Container from '@mui/material/Container';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -10,19 +11,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import Copyright from '../home/Copyright';
-import Header from '../home/Header';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const navi = useNavigate();
+
+  const onClick = () => {
+    navi('/signin');
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
   return (
     <>
-      <Header />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -34,7 +38,7 @@ export default function SignUp() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'purple' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -43,6 +47,9 @@ export default function SignUp() {
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
+                  <TextField name="ID" required fullWidth id="ID" label="ID" autoFocus />
+                </Grid>
+                <Grid item xs={12}>
                   <TextField
                     autoComplete="given-name"
                     name="NickName"
@@ -50,10 +57,12 @@ export default function SignUp() {
                     fullWidth
                     id="NickName"
                     label="Nick Name"
-                    autoFocus
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <div style={{ width: '100%', padding: '0.25rem 0 0 1rem', color: 'grey', fontSize: '0.8rem' }}>
+                  <Checkbox defaultChecked /> Be same as ID?
+                </div>
+                <Grid item xs={12} style={{ paddingTop: '0.25rem' }}>
                   <TextField required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
                 </Grid>
                 <Grid item xs={12}>
@@ -78,12 +87,12 @@ export default function SignUp() {
                   />
                 </Grid>
               </Grid>
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, bgcolor: 'purple' }}>
                 Sign Up
               </Button>
               <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="/signin" variant="body2">
+                <Grid item style={{ cursor: 'pointer' }}>
+                  <Link onClick={onClick} variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
@@ -92,7 +101,6 @@ export default function SignUp() {
           </Box>
         </Container>
       </ThemeProvider>
-      <Copyright sx={{ mt: 5 }} />
     </>
   );
 }
