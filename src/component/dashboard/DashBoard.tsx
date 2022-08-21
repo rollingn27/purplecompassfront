@@ -13,7 +13,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 export default function Content() {
   return (
-    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+    <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden', minWidth: '90%', height: '120rem' }}>
       sddsds
       <AppBar position="static" color="default" elevation={0} sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
         <Toolbar>

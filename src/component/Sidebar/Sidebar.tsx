@@ -23,6 +23,9 @@ const Sidebar = ({ setChecker }: sideBarProps) => {
   const dashBoard = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setChecker((checker) => 'dashBoard');
   };
+  const issue = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setChecker((checker) => 'issue');
+  };
 
   return (
     <span css={isOpen ? showMenu : hideMenu}>
@@ -52,7 +55,7 @@ const Sidebar = ({ setChecker }: sideBarProps) => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a onClick={issue}>
             <span className="icon">
               <Issue />
             </span>

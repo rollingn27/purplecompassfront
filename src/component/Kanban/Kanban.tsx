@@ -39,7 +39,7 @@ const bodyStyle = css`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-
+  overflow: hidden;
   & > div {
     text-align: center;
     width: 33.333%;
