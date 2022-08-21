@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Kanban from '../Kanban/Kanban';
 import Sidebar from '../Sidebar/Sidebar';
 import CreateUi from './CreateUi';
+import React from 'react';
 
 const Body = () => {
   const [hbool, setHbool] = useState(false);
