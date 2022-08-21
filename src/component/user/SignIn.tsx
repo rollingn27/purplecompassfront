@@ -12,22 +12,23 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
-import { useState } from 'react';
-import { useQueryClient } from 'react-query';
-import Copyright from '../home/Copyright';
-import Header from '../home/Header';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const navi = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
 
+  const onClick = () => {
+    navi('/signup');
+  };
+
   return (
     <>
-      <Header />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -39,23 +40,14 @@ export default function SignIn() {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'purple' }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
+              <TextField margin="normal" required fullWidth id="ID" label="ID" name="ID" autoComplete="ID" autoFocus />
               <TextField
                 margin="normal"
                 required
@@ -67,7 +59,7 @@ export default function SignIn() {
                 autoComplete="current-password"
               />
               <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, bgcolor: 'purple' }}>
                 Sign In
               </Button>
               <Grid container>
@@ -76,8 +68,8 @@ export default function SignIn() {
                     Forgot password?
                   </Link>
                 </Grid>
-                <Grid item>
-                  <Link href="/signup" variant="body2">
+                <Grid item style={{ cursor: 'pointer' }}>
+                  <Link onClick={onClick} variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
@@ -86,7 +78,6 @@ export default function SignIn() {
           </Box>
         </Container>
       </ThemeProvider>
-      <Copyright />
     </>
   );
 }

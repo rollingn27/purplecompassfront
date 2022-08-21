@@ -1,15 +1,25 @@
-import React from 'react';
 import { css } from '@emotion/react';
+import { Link } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as More } from '../../assets/ellipsis-horizontal-outline.svg';
-import { Button, Link, Typography } from '@mui/material';
+import { Button } from '../../style/Buttons';
+import React from 'react';
 
 const Header = () => {
+  const navi = useNavigate();
+
+  const onClick = () => {
+    navi('/signin');
+  };
+
   return (
     <>
       <div css={headerStyle}>
-        <div css={logoStyle}>
-          <img src="../images/images.png" style={{ width: '3rem' }} />
-        </div>
+        <Link href="/">
+          <div css={logoStyle}>
+            <img src="../images/images.png" style={{ width: '3rem' }} />
+          </div>
+        </Link>
         <div css={loginStyle}>
           <div css={rightStyle}></div>
           <div style={{ textAlign: 'right' }}>
@@ -26,11 +36,7 @@ const Header = () => {
           <More css={moreStyle} />
           <div>to us</div>
           <div>
-            <Link href="/signin">
-              {/* <Button variant="outlined" size="small" sx={{ color: 'purple', borderColor: 'purple' }}> */}
-              Sign In
-              {/* </Button> */}
-            </Link>
+            <Button onClick={onClick}>Sign In</Button>
           </div>
         </div>
       </div>

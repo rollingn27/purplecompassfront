@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import Kanban from '../Kanban/Kanban';
 
@@ -21,7 +21,6 @@ const Body = () => {
       return <div>Not Found</div>;
     }
   };
-
   return (
     <>
       <Sidebar setChecker={setChecker} />
