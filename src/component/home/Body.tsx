@@ -9,23 +9,16 @@ const Body = () => {
   const [checker, setChecker] = useState<string>('');
 
   const navigator = () => {
-    alert('navigator activated');
-    if (checker === 'dashBoard') {
-      return <DashBoard />;
-    } else if (checker === 'issue') {
+    if (checker === 'issue') {
       return <Kanban />;
     } else {
-      {
-        alert('no props');
-      }
-      return <div>Not Found</div>;
+      return <DashBoard />;
     }
   };
   return (
     <>
       <Sidebar setChecker={setChecker} />
-      <div>props 테스트 중</div>
-      {navigator}
+      {navigator()}
       <CreateUi />
     </>
   );
