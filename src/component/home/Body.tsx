@@ -1,10 +1,11 @@
-import React, { useState, Suspense } from 'react';
-import Sidebar from './Sidebar';
-import Kanban from './Kanban';
+import { useState } from 'react';
+import Kanban from '../Kanban/Kanban';
 import CreateUi from './CreateUi';
+import Sidebar from '../Sidebar/Sidebar';
+import React from 'react';
+import SignIn from '../user/SignIn';
 
 const Body = () => {
-  const body = true;
   const [hbool, setHbool] = useState(false);
   const thisset = () => {
     setHbool(!hbool);
