@@ -1,102 +1,167 @@
-import React, { useState } from 'react';
+import React, { MouseEvent, MouseEventHandler, useState, useEffect } from 'react';
 import FormInput from './FormInput';
+import { ReactComponent as CloseButton } from '../../assets/close-outline.svg';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Project } from '../../api/type';
 import { fixRequestBody } from 'http-proxy-middleware';
 
 type createProjectProps = {
-  projects: Project;
+  userId: string;
+  className?: string;
+  modalOpen: boolean;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closable: boolean;
+  maskClosable: boolean;
+  children?: string;
 };
-const CreateProject = () => {
+interface ProjectModal {}
+
+const CreateProject = ({
+  userId,
+  className,
+  modalOpen,
+  setModalOpen,
+  closable,
+  maskClosable,
+  children,
+}: createProjectProps) => {
   const [values, setValues] = useState<any>({
-    username: '',
-    email: '',
-    birthday: '',
-    password: '',
-    confirmPassword: '',
+    pName: '',
+    pKey: '',
+    tags: [''],
+    description: '',
   });
   const inputs = [
     {
       id: 1,
-      name: 'username',
+      name: 'projectName',
       type: 'text',
-      placeholder: 'Username',
-      errorMessage: "Username should be 3-16 characters and shouldn't include any special character!",
-      label: 'Username',
+      placeholder: 'Project Name',
+      label: 'Project Name',
       pattern: '^[A-Za-z0-9]{3,16}$',
       required: true,
     },
     {
       id: 2,
-      name: 'email',
-      type: 'email',
-      placeholder: 'Email',
-      errorMessage: 'It should be a valid email address!',
-      label: 'Email',
+      name: 'projectKey',
+      type: 'text',
+      placeholder: 'Project Key',
+      errorMessage: 'It should be 3~16 ',
+      label: 'Project Key',
+      pattern: '^[A-Za-z0-9]{3,16}$',
       required: true,
     },
     {
       id: 3,
-      name: 'birthday',
-      type: 'date',
-      placeholder: 'Birthday',
-      label: 'Birthday',
+      name: 'tags',
+      type: 'text',
+      placeholder: 'Tags',
+      label: 'Tags',
     },
     {
       id: 4,
-      name: 'password',
-      type: 'password',
-      placeholder: 'Password',
-      errorMessage:
-        'Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!',
-      label: 'Password',
-      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
-      required: true,
-    },
-    {
-      id: 5,
-      name: 'confirmPassword',
-      type: 'password',
-      placeholder: 'Confirm Password',
-      errorMessage: "Passwords don't match!",
-      label: 'Confirm Password',
-      pattern: values.password,
-      required: true,
+      name: 'description',
+      type: 'text',
+      placeholder: 'Description',
+      label: 'Description',
     },
   ];
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    alert('submit');
   };
 
   const onChange = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  const [onClose, setOnclose] = useState(!modalOpen);
+
+  const onMaskClick = (e: MouseEvent<HTMLDivElement>) => {
+    // alert('onMaskClick 함수 작동' + e.target + e.currentTarget);
+    e.preventDefault();
+    if (e.target === e.currentTarget) {
+      // alert('다른 범위 누르고 있음');
+      setModalOpen((modalOpen) => !modalOpen);
+    } else {
+      // alert('같은 범위 누르고 있음');
+    }
+  };
+
+  const close = (e: MouseEvent<SVGSVGElement>) => {
+    // alert('onClose 함수 작동');
+    if (modalOpen) {
+      // e.preventDefault();
+      // alert('closeButton');
+      setModalOpen((modalOpen) => !modalOpen);
+    }
+  };
+
   return (
     <>
-      <div className="app" css={projectStyle}>
-        <form onSubmit={handleSubmit}>
-          <h1> Register</h1>
-          {inputs.map((input) => (
-            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
-          ))}
-          <button className="button">Submit</button>
-        </form>
-      </div>
+      <ProjectModalOverlay modalOpen={modalOpen} />
+      <ProjectModalWrapper className={className} onClick={onMaskClick} tabIndex={-1} modalOpen={modalOpen}>
+        <ProjectModalInner tabIndex={0} className="modal-inner">
+          {closable && <CloseButton className="modal-close" onClick={close} css={CButton} />}
+          {
+            <form onSubmit={handleSubmit}>
+              <h1>Create Project</h1>
+              {inputs.map((input) => (
+                <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
+              ))}
+              <button className="button" onClick={handleSubmit}>
+                Submit
+              </button>
+            </form>
+          }
+        </ProjectModalInner>
+      </ProjectModalWrapper>
     </>
   );
 };
 
 export default CreateProject;
 
-const projectStyle = css`
+const ProjectModalOverlay = styled.div<{ modalOpen: boolean }>`
+  box-sizing: border-box;
+  display: ${(props) => (props.modalOpen ? 'block' : 'none')};
   position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+`;
+
+const ProjectModalWrapper = styled.div<{ modalOpen: boolean }>`
+  box-sizing: border-box;
+  position: fixed;
+  display: ${(props) => (props.modalOpen ? 'block' : 'none')};
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+`;
+
+const ProjectModalInner = styled.form`
+  box-sizing: border-box;
+  position: absolute;
   top: 7.5rem;
-  left: 20rem;
+  left: 25rem;
   border: 1px solid gray;
   min-width: 50rem;
   padding: 2.5rem;
   border-radius: 0.5rem;
-  z-index: 1;
-  background: white;
+  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.95);
+`;
+const CButton = css`
+  display: flex;
+  float: right;
+  width: 1rem;
+  height: 1rem;
 `;

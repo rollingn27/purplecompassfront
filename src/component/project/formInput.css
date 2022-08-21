@@ -3,26 +3,39 @@
   flex-direction: column;
   border-radius: 100%;
   border: 2rem;
-  width: 280px;
+  width: 25rem;
 }
 .button {
   float: right; /* left, right 시 display 무시됨 */
-  border-radius: 0.5rem;
+  padding: 0.2rem;
+  min-width: 5rem;
+  min-height: 1.7rem;
+  background: rgb(236, 178, 236, 0.5);
+  border: 1px solid lightgrey;
+  border-radius: 0.7rem;
 }
 
-input {
+.button:hover {
+  float: right; /* left, right 시 display 무시됨 */
+  padding: 0.2rem;
+  background: rgba(243, 45, 243, 0.3);
+  border: 1px solid skyblue;
+  border-radius: 0.7rem;
+}
+
+.formInput input {
   padding: 15px;
   margin: 10px 0px;
   border-radius: 5px;
   border: 1px solid gray;
 }
 
-label {
+.formInput label {
   font-size: 12px;
   color: gray;
 }
 
-& > span {
+.formInput span {
   font-size: 12px;
   padding: 3px;
   color: red;

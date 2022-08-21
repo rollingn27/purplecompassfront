@@ -1,25 +1,21 @@
 export type Project = {
-  
-  id: string,
-  name: string,
-  member: string[],
-  issues: Issue[],
-  creatdate: Date,
-  duedate: Date,
-  pm: string[]
+  id: string;
+  pName: string;
+  pKey: string;
+  member: string[];
+  issues: Issue[];
+  creatdate: Date;
+  duedate: Date;
+  pm: string[];
 };
 
-export type Issue = {
-
-}
-
+export type Issue = {};
 
 // username: '',
 //     email: '',
 //     birthday: '',
 //     password: '',
 //     confirmPassword: '',
-
 
 //     id*	프로젝트id
 // name	프로젝트이름
