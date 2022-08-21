@@ -1,6 +1,7 @@
 import { BrowserRouter, useNavigate, Route, Routes } from 'react-router-dom';
 import SignUp from '../user/SignUp';
 import Home from './Home';
+import DashBoard from '../dashboard/DashBoard';
 import React from 'react';
 import SignIn from '../user/SignIn';
 
@@ -17,7 +18,6 @@ const NotFound = () => {
     </>
   );
 };
-
 const Router = () => {
   return (
     <>

@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ReactComponent as Issue } from '../../assets/alert-circle-outline.svg';
 import { ReactComponent as DashBoard } from '../../assets/grid-outline.svg';
 import { ReactComponent as Help } from '../../assets/help-outline.svg';
@@ -7,12 +7,21 @@ import { ReactComponent as LogOut } from '../../assets/log-out-outline.svg';
 import { ReactComponent as Person } from '../../assets/person-circle-outline.svg';
 import { ReactComponent as Search } from '../../assets/search-outline.svg';
 import { ReactComponent as Setting } from '../../assets/settings-outline.svg';
+import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+type sideBarProps = {
+  setChecker: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const Sidebar = ({ setChecker }: sideBarProps) => {
   const [isOpen, setSideMenu] = useState(false);
 
   const menuToggle = () => {
     setSideMenu((isOpen) => !isOpen);
+  };
+
+  const dashBoard = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setChecker((checker) => 'dashBoard');
   };
 
   return (
@@ -35,7 +44,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a onClick={dashBoard}>
             <span className="icon">
               <DashBoard />
             </span>
