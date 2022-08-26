@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
@@ -9,14 +10,10 @@ import { ReactComponent as Check } from '../../assets/checkmark-outline.svg';
 
 const CreateUi = (e: any) => {
   const [isOpen, setRightUiMenu] = useState(false);
+  const menuToggle = useCallback(() => setRightUiMenu((isOpen) => !isOpen), []);
 
-  const menuToggle = () => {
-    setRightUiMenu((isOpen) => !isOpen);
-  };
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const openModal = () => {
-    setModalOpen((modalOpen) => !modalOpen);
-  };
+  const openModal = useCallback(() => setModalOpen((modalOpen) => !modalOpen), []);
 
   const userId = 'TestId';
   return (
@@ -48,7 +45,7 @@ const CreateUi = (e: any) => {
             </a>
           </li>
           <li css={no3}>
-            <a href="#">
+            <a href="#" onClick={openModal}>
               <Issue />
             </a>
           </li>

@@ -1,10 +1,10 @@
-import React, { MouseEvent, useState, useCallback, CSSProperties } from 'react';
-import FormInput from './FormInput';
+import React, { MouseEvent, useState, useReducer, useRef, useCallback, CSSProperties } from 'react';
+import FormInput from '../project/FormInput';
 import { ReactComponent as CloseButton } from '../../assets/close-outline.svg';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-type createProjectProps = {
+type createIssueProps = {
   userId: string;
   className?: string;
   modalOpen: boolean;
@@ -14,19 +14,44 @@ type createProjectProps = {
   children?: string;
 };
 
-const fixedCenterStyle: CSSProperties = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-};
+interface StateInterface {
+  input: {
+    summary: string;
+    assignee: string[];
+    status: string;
+    dueDate: Date;
+    parent?: string[];
+    tag?: string[];
+    description?: string;
+  };
+}
+interface Action {
+  type: string;
+}
 
-const fakeScrollableStyle: CSSProperties = {
-  minHeight: '150vh',
-  background: 'linear-gradient(palegreen, palegoldenrod, palevioletred)',
-};
+function reducer(state: string, action: any): string {
+  switch (action.Type) {
+    case '':
+      return state;
 
-const CreateProject = ({
+    default:
+      return 'no case';
+      break;
+  }
+}
+// const fixedCenterStyle: CSSProperties = {
+//   position: 'fixed',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+// };
+
+// const fakeScrollableStyle: CSSProperties = {
+//   minHeight: '150vh',
+//   background: 'linear-gradient(palegreen, palegoldenrod, palevioletred)',
+// };
+
+const CreateIssue = ({
   userId,
   className,
   modalOpen,
@@ -34,7 +59,7 @@ const CreateProject = ({
   closable,
   maskClosable,
   children,
-}: createProjectProps) => {
+}: createIssueProps) => {
   const [values, setValues] = useState<any>({
     pName: '',
     pKey: '',
@@ -78,19 +103,17 @@ const CreateProject = ({
     },
   ];
 
-  const handleSubmit = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleSubmit = (e: any) => {
+    // e.preventDefault();
     alert('click submitButton');
-    e.currentTarget.blur();
-  }, []);
+  };
 
   const testPost = (e: any) => {
     alert('after click, request are made');
   };
-  const onChange = useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
-    [],
-  );
+  const onChange = (e: any) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const [onClose, setOnclose] = useState(!modalOpen);
 
@@ -99,7 +122,7 @@ const CreateProject = ({
     e.preventDefault();
     if (e.target === e.currentTarget) {
       // alert('다른 범위 누르고 있음');
-      setModalOpen(!modalOpen);
+      setModalOpen((modalOpen) => !modalOpen);
     } else {
       // alert('같은 범위 누르고 있음');
     }
@@ -110,7 +133,7 @@ const CreateProject = ({
     if (modalOpen) {
       // e.preventDefault();
       // alert('closeButton');
-      setModalOpen(!modalOpen);
+      setModalOpen((modalOpen) => !modalOpen);
     }
   };
 
@@ -118,14 +141,14 @@ const CreateProject = ({
     <>
       <ProjectModalOverlay modalOpen={modalOpen} />
       <ProjectModalWrapper className={className} onClick={onMaskClick} tabIndex={-1} modalOpen={modalOpen}>
-        <ProjectModalInner tabIndex={-1} className="modal-inner" onSubmit={testPost}>
+        <ProjectModalInner tabIndex={0} className="modal-inner" onSubmit={testPost}>
           {closable && <CloseButton className="modal-close" onClick={close} css={CButton} />}
 
           <h1>Create Project</h1>
           {inputs.map((input) => (
             <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
           ))}
-          <button className="button" onClick={handleSubmit} tabIndex={0}>
+          <button className="button" onClick={handleSubmit}>
             Submit
           </button>
         </ProjectModalInner>
@@ -134,7 +157,7 @@ const CreateProject = ({
   );
 };
 
-export default CreateProject;
+export default CreateIssue;
 
 const ProjectModalOverlay = styled.div<{ modalOpen: boolean }>`
   box-sizing: border-box;
