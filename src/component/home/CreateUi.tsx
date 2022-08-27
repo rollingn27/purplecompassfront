@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useReducer } from 'react';
 import { useLocation } from 'react-router-dom';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
+import CreateIssue from '../issue/CreateIssue';
 import { ReactComponent as AddOutline } from '../../assets/add-outline.svg';
 import { ReactComponent as Project } from '../../assets/clipboard-outline.svg';
 import { ReactComponent as Issue } from '../../assets/document-outline.svg';
@@ -11,11 +12,11 @@ import { ReactComponent as Check } from '../../assets/checkmark-outline.svg';
 const CreateUi = (e: any) => {
   const [isOpen, setRightUiMenu] = useState(false);
   const menuToggle = useCallback(() => setRightUiMenu((isOpen) => !isOpen), []);
-
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-  const openModal = useCallback(() => setModalOpen((modalOpen) => !modalOpen), []);
+  const openModal = (e: React.MouseEvent<HTMLAnchorElement>) => setModalOpen((modalOpen) => !modalOpen);
 
   const userId = 'TestId';
+
   return (
     <>
       {modalOpen && (
@@ -45,12 +46,12 @@ const CreateUi = (e: any) => {
             </a>
           </li>
           <li css={no3}>
-            <a href="#" onClick={openModal}>
+            <a href="#" id="issue" className="issue" onClick={openModal}>
               <Issue />
             </a>
           </li>
           <li css={no4}>
-            <a href="#" onClick={openModal}>
+            <a href="#" id="project" className="project" onClick={openModal}>
               <Project />
             </a>
           </li>

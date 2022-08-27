@@ -15,6 +15,13 @@ const Body = () => {
       return <DashBoard />;
     }
   };
+
+  const [modalChecker, setModalChecker] = useState<string>('');
+
+  const modalNavi = () => {
+    if (modalChecker === 'project') {
+    }
+  };
   return (
     <>
       <Sidebar setChecker={setChecker} />
