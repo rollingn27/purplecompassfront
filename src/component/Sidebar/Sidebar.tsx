@@ -7,7 +7,6 @@ import { ReactComponent as LogOut } from '../../assets/log-out-outline.svg';
 import { ReactComponent as Person } from '../../assets/person-circle-outline.svg';
 import { ReactComponent as Search } from '../../assets/search-outline.svg';
 import { ReactComponent as Setting } from '../../assets/settings-outline.svg';
-import { Link } from 'react-router-dom';
 
 type sideBarProps = {
   setChecker: React.Dispatch<React.SetStateAction<string>>;
@@ -21,10 +20,10 @@ const Sidebar = ({ setChecker }: sideBarProps) => {
   };
 
   const dashBoard = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    setChecker((checker) => 'dashBoard');
+    setChecker((defaultChecker) => 'dashBoard');
   };
   const issue = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    setChecker((checker) => 'issue');
+    setChecker((defaultChecker) => 'issue');
   };
 
   return (

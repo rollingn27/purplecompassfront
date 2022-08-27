@@ -144,7 +144,7 @@ const CreateIssue = ({
         <ProjectModalInner tabIndex={0} className="modal-inner" onSubmit={testPost}>
           {closable && <CloseButton className="modal-close" onClick={close} css={CButton} />}
 
-          <h1>Create Project</h1>
+          <h1>Create Issue</h1>
           {inputs.map((input) => (
             <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
           ))}

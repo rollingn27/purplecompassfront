@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState, useCallback, CSSProperties } from 'react';
+import React, { MouseEvent, useState, useCallback, useRef, CSSProperties } from 'react';
 import FormInput from './FormInput';
 import { ReactComponent as CloseButton } from '../../assets/close-outline.svg';
 import { css } from '@emotion/react';
@@ -14,17 +14,17 @@ type createProjectProps = {
   children?: string;
 };
 
-const fixedCenterStyle: CSSProperties = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-};
+// const fixedCenterStyle: CSSProperties = {
+//   position: 'fixed',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+// };
 
-const fakeScrollableStyle: CSSProperties = {
-  minHeight: '150vh',
-  background: 'linear-gradient(palegreen, palegoldenrod, palevioletred)',
-};
+// const fakeScrollableStyle: CSSProperties = {
+//   minHeight: '150vh',
+//   background: 'linear-gradient(palegreen, palegoldenrod, palevioletred)',
+// };
 
 const CreateProject = ({
   userId,
@@ -38,13 +38,13 @@ const CreateProject = ({
   const [values, setValues] = useState<any>({
     pName: '',
     pKey: '',
-    tags: [''],
-    description: '',
+    pTags: '',
+    pDesc: '',
   });
   const inputs = [
     {
       id: 1,
-      name: 'projectName',
+      name: 'Project Name',
       type: 'text',
       placeholder: 'Project Name',
       errorMessage: '프로젝트명은 3~15의 온전한 문자로 이루어져야 합니다',
@@ -54,24 +54,24 @@ const CreateProject = ({
     },
     {
       id: 2,
-      name: 'projectKey',
+      name: 'Project Key',
       type: 'text',
       placeholder: 'Project Key',
-      errorMessage: 'It should be 3~16 ',
+      errorMessage: '프로젝트키는 3~15의 영문자 혹은 숫자로 이루어져야 합니다 ',
       label: 'Project Key',
-      pattern: '^[A-Za-z0-9]{3,16}$',
+      pattern: '^[A-Za-z0-9]{3,15}$',
       required: true,
     },
     {
       id: 3,
-      name: 'tags',
+      name: 'Tags',
       type: 'text',
       placeholder: 'Tags',
       label: 'Tags',
     },
     {
       id: 4,
-      name: 'description',
+      name: 'Description',
       type: 'text',
       placeholder: 'Description',
       label: 'Description',
@@ -80,15 +80,30 @@ const CreateProject = ({
 
   const handleSubmit = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    alert('click submitButton');
+    alert(
+      'name: ' +
+        values.pName +
+        '\n' +
+        'key: ' +
+        values.pKey +
+        '\n' +
+        'tag: ' +
+        values.pTags +
+        '\n' +
+        'desc: ' +
+        values.pDesc,
+    );
+    console.log('what?');
     e.currentTarget.blur();
   }, []);
 
   const testPost = (e: any) => {
     alert('after click, request are made');
   };
+
   const onChange = useCallback(
-    (e: React.FormEvent<HTMLInputElement>) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
+    // (e: React.FormEvent<HTMLInputElement>) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
+    (e: any) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
     [],
   );
 
@@ -123,7 +138,7 @@ const CreateProject = ({
 
           <h1>Create Project</h1>
           {inputs.map((input) => (
-            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
+            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} setValues={setValues} />
           ))}
           <button className="button" onClick={handleSubmit} tabIndex={0}>
             Submit
@@ -134,7 +149,7 @@ const CreateProject = ({
   );
 };
 
-export default CreateProject;
+export default React.memo(CreateProject);
 
 const ProjectModalOverlay = styled.div<{ modalOpen: boolean }>`
   box-sizing: border-box;
