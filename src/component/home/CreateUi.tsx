@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { useLocation } from 'react-router-dom';
 import { css } from '@emotion/react';
 import CreateProject from '../project/CreateProject';
 import CreateIssue from '../issue/CreateIssue';
@@ -9,7 +8,12 @@ import { ReactComponent as Issue } from '../../assets/document-outline.svg';
 import { ReactComponent as Todo } from '../../assets/list-outline.svg';
 import { ReactComponent as Check } from '../../assets/checkmark-outline.svg';
 
-const CreateUi = (e: any) => {
+// type createUiProps = {
+//   setModalChecker: React.Dispatch<React.SetStateAction<string>>,
+//   modalNavi: any,
+// };
+
+const CreateUi = () => {
   const [isOpen, setRightUiMenu] = useState(false);
   const menuToggle = useCallback(() => setRightUiMenu((isOpen) => !isOpen), []);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -46,7 +50,7 @@ const CreateUi = (e: any) => {
             </a>
           </li>
           <li css={no3}>
-            <a href="#" id="issue" className="issue" onClick={openModal}>
+            <a href="#" id="issue" className="issue">
               <Issue />
             </a>
           </li>

@@ -41,10 +41,11 @@ const CreateProject = ({
     pTags: '',
     pDesc: '',
   });
+
   const inputs = [
     {
       id: 1,
-      name: 'Project Name',
+      name: 'pName',
       type: 'text',
       placeholder: 'Project Name',
       errorMessage: '프로젝트명은 3~15의 온전한 문자로 이루어져야 합니다',
@@ -54,7 +55,7 @@ const CreateProject = ({
     },
     {
       id: 2,
-      name: 'Project Key',
+      name: 'pKey',
       type: 'text',
       placeholder: 'Project Key',
       errorMessage: '프로젝트키는 3~15의 영문자 혹은 숫자로 이루어져야 합니다 ',
@@ -64,14 +65,14 @@ const CreateProject = ({
     },
     {
       id: 3,
-      name: 'Tags',
+      name: 'pTags',
       type: 'text',
       placeholder: 'Tags',
       label: 'Tags',
     },
     {
       id: 4,
-      name: 'Description',
+      name: 'pDesc',
       type: 'text',
       placeholder: 'Description',
       label: 'Description',
@@ -99,12 +100,33 @@ const CreateProject = ({
 
   const testPost = (e: any) => {
     alert('after click, request are made');
+    // e.preventDefault();
+    alert(
+      'name: ' +
+        values.pName +
+        '\n' +
+        'key: ' +
+        values.pKey +
+        '\n' +
+        'tag: ' +
+        values.pTags +
+        '\n' +
+        'desc: ' +
+        values.pDesc,
+    );
+    console.log('what?');
+    e.currentTarget.blur();
   };
 
   const onChange = useCallback(
     // (e: React.FormEvent<HTMLInputElement>) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
-    (e: any) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
-    [],
+    (e: any) => {
+      console.log(e.target.value);
+      setValues({ ...values, [e.currentTarget.name]: [e.target.value] });
+      console.log(e.currentTarget.value);
+      console.log(values.pName);
+    },
+    [values],
   );
 
   const [onClose, setOnclose] = useState(!modalOpen);
@@ -138,9 +160,9 @@ const CreateProject = ({
 
           <h1>Create Project</h1>
           {inputs.map((input) => (
-            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} setValues={setValues} />
+            <FormInput key={input.id} {...input} name={input.name} value={values[input.name]} onChange={onChange} />
           ))}
-          <button className="button" onClick={handleSubmit} tabIndex={0}>
+          <button className="button" onClick={handleSubmit}>
             Submit
           </button>
         </ProjectModalInner>
