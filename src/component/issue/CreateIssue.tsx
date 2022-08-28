@@ -1,10 +1,10 @@
-import React, { MouseEvent, useState, useCallback, useRef, CSSProperties } from 'react';
-import FormInput from './FormInput';
+import React, { MouseEvent, useState, useReducer, useRef, useCallback, CSSProperties } from 'react';
+import FormInput from '../project/FormInput';
 import { ReactComponent as CloseButton } from '../../assets/close-outline.svg';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-type createProjectProps = {
+type createIssueProps = {
   userId: string;
   className?: string;
   modalOpen: boolean;
@@ -14,6 +14,31 @@ type createProjectProps = {
   children?: string;
 };
 
+interface StateInterface {
+  input: {
+    summary: string;
+    assignee: string[];
+    status: string;
+    dueDate: Date;
+    parent?: string[];
+    tag?: string[];
+    description?: string;
+  };
+}
+interface Action {
+  type: string;
+}
+
+function reducer(state: string, action: any): string {
+  switch (action.Type) {
+    case '':
+      return state;
+
+    default:
+      return 'no case';
+      break;
+  }
+}
 // const fixedCenterStyle: CSSProperties = {
 //   position: 'fixed',
 //   top: '50%',
@@ -26,7 +51,7 @@ type createProjectProps = {
 //   background: 'linear-gradient(palegreen, palegoldenrod, palevioletred)',
 // };
 
-const CreateProject = ({
+const CreateIssue = ({
   userId,
   className,
   modalOpen,
@@ -34,18 +59,17 @@ const CreateProject = ({
   closable,
   maskClosable,
   children,
-}: createProjectProps) => {
+}: createIssueProps) => {
   const [values, setValues] = useState<any>({
     pName: '',
     pKey: '',
-    pTags: '',
-    pDesc: '',
+    tags: [''],
+    description: '',
   });
-
   const inputs = [
     {
       id: 1,
-      name: 'pName',
+      name: 'projectName',
       type: 'text',
       placeholder: 'Project Name',
       errorMessage: '프로젝트명은 3~15의 온전한 문자로 이루어져야 합니다',
@@ -55,79 +79,41 @@ const CreateProject = ({
     },
     {
       id: 2,
-      name: 'pKey',
+      name: 'projectKey',
       type: 'text',
       placeholder: 'Project Key',
-      errorMessage: '프로젝트키는 3~15의 영문자 혹은 숫자로 이루어져야 합니다 ',
+      errorMessage: 'It should be 3~16 ',
       label: 'Project Key',
-      pattern: '^[A-Za-z0-9]{3,15}$',
+      pattern: '^[A-Za-z0-9]{3,16}$',
       required: true,
     },
     {
       id: 3,
-      name: 'pTags',
+      name: 'tags',
       type: 'text',
       placeholder: 'Tags',
       label: 'Tags',
     },
     {
       id: 4,
-      name: 'pDesc',
+      name: 'description',
       type: 'text',
       placeholder: 'Description',
       label: 'Description',
     },
   ];
 
-  const handleSubmit = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    alert(
-      'name: ' +
-        values.pName +
-        '\n' +
-        'key: ' +
-        values.pKey +
-        '\n' +
-        'tag: ' +
-        values.pTags +
-        '\n' +
-        'desc: ' +
-        values.pDesc,
-    );
-    console.log('what?');
-    e.currentTarget.blur();
-  }, []);
+  const handleSubmit = (e: any) => {
+    // e.preventDefault();
+    alert('click submitButton');
+  };
 
   const testPost = (e: any) => {
     alert('after click, request are made');
-    // e.preventDefault();
-    alert(
-      'name: ' +
-        values.pName +
-        '\n' +
-        'key: ' +
-        values.pKey +
-        '\n' +
-        'tag: ' +
-        values.pTags +
-        '\n' +
-        'desc: ' +
-        values.pDesc,
-    );
-    console.log('what?');
-    e.currentTarget.blur();
   };
-
-  const onChange = useCallback(
-    // (e: React.FormEvent<HTMLInputElement>) => setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value }),
-    (e: any) => {
-      console.log(e.target.value);
-      setValues({ ...values, [e.currentTarget.name]: [e.target.value] });
-      console.log(e.currentTarget.value);
-      console.log(values.pName);
-    },
-    [values],
-  );
+  const onChange = (e: any) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   const [onClose, setOnclose] = useState(!modalOpen);
 
@@ -136,7 +122,7 @@ const CreateProject = ({
     e.preventDefault();
     if (e.target === e.currentTarget) {
       // alert('다른 범위 누르고 있음');
-      setModalOpen(!modalOpen);
+      setModalOpen((modalOpen) => !modalOpen);
     } else {
       // alert('같은 범위 누르고 있음');
     }
@@ -147,7 +133,7 @@ const CreateProject = ({
     if (modalOpen) {
       // e.preventDefault();
       // alert('closeButton');
-      setModalOpen(!modalOpen);
+      setModalOpen((modalOpen) => !modalOpen);
     }
   };
 
@@ -155,12 +141,12 @@ const CreateProject = ({
     <>
       <ProjectModalOverlay modalOpen={modalOpen} />
       <ProjectModalWrapper className={className} onClick={onMaskClick} tabIndex={-1} modalOpen={modalOpen}>
-        <ProjectModalInner tabIndex={-1} className="modal-inner" onSubmit={testPost}>
+        <ProjectModalInner tabIndex={0} className="modal-inner" onSubmit={testPost}>
           {closable && <CloseButton className="modal-close" onClick={close} css={CButton} />}
 
-          <h1>Create Project</h1>
+          <h1>Create Issue</h1>
           {inputs.map((input) => (
-            <FormInput key={input.id} {...input} name={input.name} value={values[input.name]} onChange={onChange} />
+            <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange} />
           ))}
           <button className="button" onClick={handleSubmit}>
             Submit
@@ -171,7 +157,7 @@ const CreateProject = ({
   );
 };
 
-export default React.memo(CreateProject);
+export default CreateIssue;
 
 const ProjectModalOverlay = styled.div<{ modalOpen: boolean }>`
   box-sizing: border-box;

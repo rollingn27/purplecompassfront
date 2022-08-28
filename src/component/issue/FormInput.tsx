@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/react';
 import './formInput.css';
 
@@ -6,23 +6,19 @@ const FormInput = (props: any) => {
   const [focused, setFocused] = useState(false);
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
-  const inputRef = useRef(null);
-
-  const handleFocus = useCallback((e: any) => {
+  const handleFocus = (e: any) => {
     e.preventDefault();
-    setFocused((focused) => !focused);
-  }, []);
+    setFocused(!focused);
+  };
 
   return (
     <div className="formInput">
       <label>{label}</label>
       <input
-        className="projectInput"
         {...inputProps}
-        ref={inputRef}
         onChange={onChange}
         onBlur={handleFocus}
-        onFocus={() => setFocused(() => true)}
+        onFocus={() => inputProps.name === 'confirmPassword' && setFocused((focused) => true)}
         focused={focused.toString()}
       />
       <span>{errorMessage}</span>
